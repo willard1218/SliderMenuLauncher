@@ -1,0 +1,28 @@
+ [
+  {
+  "sectionTitle":"Feature",
+  "items":[
+           {
+           "name":"Send Feedback",
+           "imageName":"feedback"
+           },
+           {
+           "name":"Help",
+           "imageName":"help"
+           }
+           ]
+  },
+  {
+  "sectionTitle":"Settings",
+  "items":[
+           {
+           "name":"Switch Account",
+           "imageName":"switch_account"
+           },
+           {
+           "name":"Settings",
+           "imageName":"settings"
+           }
+           ]
+  }
+  ]
