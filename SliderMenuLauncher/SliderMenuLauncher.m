@@ -16,6 +16,7 @@
 NSString *cellId = @"cellId";
 const static CGFloat cellHeight = 50;
 const static CGFloat headerHeight = 50;
+const static CGFloat menuWidth = 300;
 
 - (instancetype)init {
     self = [super init];
@@ -69,14 +70,9 @@ const static CGFloat headerHeight = 50;
     [window addSubview:self.tableView];
     
     
-    CGFloat height = headerHeight * _sections.count;
     
-    for (Section *section in _sections) {
-        height += cellHeight * section.menuItems.count;
-    }
-    
-    CGFloat y = window.frame.size.height - height;
-    self.tableView.frame = CGRectMake(0, window.frame.size.height, window.frame.size.width, height);
+    CGFloat x = window.frame.size.width - menuWidth;
+    self.tableView.frame = CGRectMake(0, 0, x, window.frame.size.height);
     
     _blackView.frame = window.frame;
     _blackView.alpha = 0;
@@ -84,7 +80,7 @@ const static CGFloat headerHeight = 50;
     [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseOut animations:^{
          //[self.tableView reloadData];
         self.blackView.alpha = 1;
-        self.tableView.frame = CGRectMake(0, y, window.frame.size.width, window.frame.size.height);
+        self.tableView.frame = CGRectMake(0, 0, menuWidth, window.frame.size.height);
     } completion:nil];
     
 }
@@ -92,12 +88,10 @@ const static CGFloat headerHeight = 50;
 - (void)handleDismiss:(MenuItem *)menuItem {
     [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.blackView.alpha = 0;
-        UIWindow *window = [UIApplication sharedApplication].keyWindow;
-        
         self.tableView.frame = CGRectMake(0,
-                                               window.frame.size.height,
-                                               self.tableView.frame.size.width,
-                                               self.tableView.frame.size.height);
+                                          0,
+                                          0,
+                                          self.tableView.frame.size.height);
     } completion:^(BOOL finished) {
         if ([menuItem isKindOfClass:MenuItem.class] && ![menuItem.name isEqualToString:@""] && ![menuItem.name isEqualToString:@"Cancel"]) {
             
@@ -112,7 +106,6 @@ const static CGFloat headerHeight = 50;
     }
     
     _tableView = [[UITableView alloc] init];
-    //_tableView.backgroundColor = [UIColor whiteColor];
     [_tableView registerClass:MenuItemCell.class forCellReuseIdentifier:cellId];
     return _tableView;
 }
