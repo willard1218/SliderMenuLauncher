@@ -55,6 +55,27 @@ const static CGFloat menuWidth = 300;
     }
     
     _sections = sections.copy;
+    
+    [self addSubview:self.tableView];
+    [self addSubview:self.headerView];
+    _tableView.translatesAutoresizingMaskIntoConstraints = NO;
+    _headerView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    
+    [_headerView.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
+    [_headerView.rightAnchor constraintEqualToAnchor:self.rightAnchor].active = YES;
+    [_headerView.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
+    
+    
+    [_headerView.heightAnchor constraintEqualToConstant:120].active = YES;
+    
+    [_tableView.topAnchor constraintEqualToAnchor:_headerView.bottomAnchor].active = YES;
+    
+    
+    [_tableView.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
+    [_tableView.rightAnchor constraintEqualToAnchor:self.rightAnchor].active = YES;
+    
+    [_tableView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
 }
 
 
@@ -67,20 +88,16 @@ const static CGFloat menuWidth = 300;
     
     [_blackView addGestureRecognizer:tapGestureRecognizer];
     [window addSubview:_blackView];
-    [window addSubview:self.tableView];
+    [window addSubview:self];
     
-    
-    
-    CGFloat x = window.frame.size.width - menuWidth;
-    self.tableView.frame = CGRectMake(0, 0, x, window.frame.size.height);
+    self.frame = CGRectMake(-menuWidth, 0, menuWidth, window.frame.size.height);
     
     _blackView.frame = window.frame;
     _blackView.alpha = 0;
    
     [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseOut animations:^{
-         //[self.tableView reloadData];
         self.blackView.alpha = 1;
-        self.tableView.frame = CGRectMake(0, 0, menuWidth, window.frame.size.height);
+        self.frame = CGRectMake(0, 0, menuWidth, window.frame.size.height);
     } completion:nil];
     
 }
@@ -88,10 +105,12 @@ const static CGFloat menuWidth = 300;
 - (void)handleDismiss:(MenuItem *)menuItem {
     [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.blackView.alpha = 0;
-        self.tableView.frame = CGRectMake(0,
+        
+        self.frame = CGRectMake(-self.frame.size.width,
                                           0,
-                                          0,
-                                          self.tableView.frame.size.height);
+                                          self.frame.size.width,
+                                          self.frame.size.height);
+      
     } completion:^(BOOL finished) {
         if ([menuItem isKindOfClass:MenuItem.class] && ![menuItem.name isEqualToString:@""] && ![menuItem.name isEqualToString:@"Cancel"]) {
             
@@ -107,7 +126,19 @@ const static CGFloat menuWidth = 300;
     
     _tableView = [[UITableView alloc] init];
     [_tableView registerClass:MenuItemCell.class forCellReuseIdentifier:cellId];
+    _tableView.separatorStyle = UITableViewCellSelectionStyleNone;
+    
     return _tableView;
+}
+
+- (UIView *)headerView {
+    if (_headerView) {
+        return _headerView;
+    }
+    
+    _headerView = [[UIView alloc] init];
+    _headerView.backgroundColor = [UIColor yellowColor];
+    return _headerView;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -126,6 +157,7 @@ const static CGFloat menuWidth = 300;
     MenuItemCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId forIndexPath:indexPath];
     
     cell.menuItem = _sections[indexPath.section].menuItems[indexPath.row];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
 }

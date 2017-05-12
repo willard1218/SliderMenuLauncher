@@ -12,8 +12,8 @@
 
 @class MenuItem;
 
-@interface SliderMenuLauncher : NSObject <UITableViewDelegate, UITableViewDataSource>
-
+@interface SliderMenuLauncher : UIView <UITableViewDelegate, UITableViewDataSource>
+@property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *blackView;
 @property (nonatomic, strong) NSArray <Section *> *sections;

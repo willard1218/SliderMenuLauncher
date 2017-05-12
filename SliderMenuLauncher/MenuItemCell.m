@@ -28,7 +28,7 @@
     
     [self addConstraintsWithFormat:@"V:|[v0]|" views: @[self.nameLabel]];
     
-    [self addConstraintsWithFormat:@"V:[v0(30)]"  views: @[self.iconImageView]];
+    [self addConstraintsWithFormat:@"V:[v0(30)]" views: @[self.iconImageView]];
     [self.iconImageView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor].active = YES;
 }
 
