@@ -9,6 +9,13 @@
 #import "UIView+Helpers.h"
 
 @implementation UIView (Helpers)
+
+
+- (void)addConstraintsWithFormat:(NSString *)format view:(UIView *)view {
+    [self addConstraintsWithFormat:format views:@[view]];
+}
+
+
 - (void)addConstraintsWithFormat:(NSString *)format views:(NSArray <UIView *>*)views {
     NSMutableDictionary <NSString *, UIView*> *viewDictionary;
     viewDictionary = [NSMutableDictionary dictionary];

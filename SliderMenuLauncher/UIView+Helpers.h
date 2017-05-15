@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface UIView (Helpers)
+- (void)addConstraintsWithFormat:(NSString *)format view:(UIView *)view;
 - (void)addConstraintsWithFormat:(NSString *)format views:(NSArray <UIView *>*)views;
 @end

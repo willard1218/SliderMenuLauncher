@@ -17,5 +17,6 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *blackView;
 @property (nonatomic, strong) NSArray <Section *> *sections;
+@property (nonatomic, strong) UIColor *backgroundColor;
 - (void)showMenu;
 @end
