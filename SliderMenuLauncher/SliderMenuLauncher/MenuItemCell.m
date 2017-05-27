@@ -19,6 +19,7 @@
     
     return self;
 }
+
 - (void)setupViews {
     
     [self addSubview:self.nameLabel];
@@ -30,15 +31,21 @@
     
     [self addConstraintsWithFormat:@"V:[v0(30)]" views: @[self.iconImageView]];
     [self.iconImageView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor].active = YES;
+    
+    self.nameLabel.font = [UIFont systemFontOfSize:18];
 }
 
 - (void)setHighlighted:(BOOL)highlighted {
     super.highlighted = highlighted;
-    self.backgroundColor = (highlighted) ? [UIColor darkGrayColor] : [UIColor whiteColor];
     
-    self.nameLabel.textColor = (highlighted) ? [UIColor whiteColor] : [UIColor blackColor];
+    UIColor *backgroundColor = [UIColor colorWithRed:34.0/255 green:136.0/255 blue:179.0/255 alpha:1];
     
-    self.iconImageView.tintColor = (highlighted) ? [UIColor whiteColor] : [UIColor blackColor];
+    self.backgroundColor = (highlighted) ? [UIColor darkGrayColor] : backgroundColor;
+    
+    
+    self.nameLabel.textColor = (!highlighted) ? [UIColor whiteColor] : [UIColor blackColor];
+    
+    self.iconImageView.tintColor = (!highlighted) ? [UIColor whiteColor] : [UIColor blackColor];
 }
 
 - (void)setMenuItem:(MenuItem *)menuItem {
